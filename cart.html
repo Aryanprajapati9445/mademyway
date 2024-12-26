@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="Screenshot (599).png" type="image/x-icon">
+    <style>
+        .cart-container {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .cart-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        #cart-items {
+
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            column-gap: 3px;
+        }
+
+        .cart-item img {
+            width: 50px;
+            height: auto;
+            margin-right: 10px;
+        }
+
+        .cart-item p {
+            margin: 0;
+        }
+
+        .remove-item {
+            padding: 5px 10px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .butn .buy1 {
+            padding: 5px 12px;
+            border-radius: 4px;
+            border: none;
+            background-color: #ff9900;
+        }
+
+        .remove-item:hover {
+            background-color: #c82333;
+        }
+
+        #checkout {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #checkout:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <img src="Screenshot (599).png" alt="Logo" height="50px" width="50px" style="border-radius: 50%;">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="cart.html">Cart</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="cart">
+        <div class="cart-container">
+            <h2>Your Cart</h2>
+            <div id="cart-items">
+                <!-- Cart items will be dynamically inserted here -->
+            </div>
+            <button id="checkout" class="btn-cta">Proceed to Checkout</button>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 BrandName. All rights reserved.</p>
+    </footer>
+
+    <script>
+
+        const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+        const cartContainer = document.getElementById("cart-items");
+
+        function displayCart() {
+            cartContainer.innerHTML = "";
+            if (cartItems.length === 0) {
+                cartContainer.innerHTML = "<p>Your cart is empty.</p>";
+            } else {
+                cartItems.forEach((item, index) => {
+                    const cartItem = document.createElement("div");
+                    cartItem.classList.add("cart-item");
+                    cartItem.innerHTML = `
+                        <img src="${item.img}" alt="${item.name}" width="50px" />
+                        <p>${item.name}</p>
+                        <p>$${item.price}</p>
+                        <div class="butn">
+                        <button class="remove-item" data-index="${index}">Remove</button>
+                <button class="buy1 buy ">Buy</button>
+                        </div>
+                    `;
+                    cartContainer.appendChild(cartItem);
+                });
+            }
+        }
+
+
+        function removeItem(index) {
+
+            cartItems.splice(index, 1);
+
+
+            localStorage.setItem("cartItems", JSON.stringify(cartItems));
+
+
+            displayCart();
+        }
+
+
+        function setupRemoveListeners() {
+            const removeButtons = document.querySelectorAll(".remove-item");
+            removeButtons.forEach(button => {
+                button.addEventListener("click", (event) => {
+                    const index = event.target.getAttribute("data-index");
+                    removeItem(index);
+                });
+            });
+        }
+
+       
+        displayCart();
+
+        
+        setupRemoveListeners();
+
+
+        document.getElementById("checkout").addEventListener("click", () => {
+            window.location.href = "sign-up.html";
+        });
+    </script>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
