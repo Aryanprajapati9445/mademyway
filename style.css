@@ -92,7 +92,7 @@ nav a:hover {
     color: white;
     text-align: center;
     animation: fadeIn var(--animation-duration) ease-in-out;
-    background-image: url(".bg\ image.jpg");
+    background-image: url(".bgimage.jpg");
 }
 
 .hero-text h1 {
