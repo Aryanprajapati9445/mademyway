@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="Screenshot (599).png" type="image/x-icon">
+    <style>
+          #signup-popup {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* background: rgba(0, 0, 0, 0.5); */
+            background: transparent;
+            background-image: url(shoe\ img2.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            /* backdrop-filter: blur(20px); */
+            /* z-index: -1; */
+
+        }
+
+        .nav-container {
+            position: fixed;
+            /* Fixed position to make it stay at the top */
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+            /* Higher z-index to appear above the background image */
+            background-color: transparent;
+            /* Make the background transparent */
+            padding: 10px 20px;
+            /* Add padding for spacing */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+
+        .signup-container {
+            /* background-color: white; */
+            background: transparent;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            position: relative;
+            background: transparent;
+            backdrop-filter: blur(20px);
+        }
+
+        .signup-container h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .signup-container input {
+            width: 80%;
+            padding: 12px;
+            margin: 10px 0px;
+            background: transparent;
+            color: #ece5e4;
+            /* color: #ebe4e400; */
+            /* border: 1px solid #ddd; */
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            border-bottom: 2px solid rgb(12, 12, 12);
+            font-size: 1rem;
+        }
+
+
+        .signup-container .signup-btn {
+            width: 80%;
+            padding: 12px;
+            background-color: #43575c2a;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        .signup-container .signup-btn:hover {
+            background-color: #5e767c2a;
+        }
+
+        /* Close button styling */
+        .btn {
+            position: absolute;
+            top: 10px;
+            right: 16px;
+
+        }
+
+        .close-btn {
+            background-color: transparent;
+            border: none;
+            font-size: 1.5rem;
+            color: #f3ecec00;
+            cursor: pointer;
+            transition: color 0.3s;
+            z-index: -1;
+
+        }
+
+        .close-btn:hover {
+            color: #f5f1f0;
+        }
+
+
+
+
+
+        .signup-container h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .signup-container input {
+            width: 80%;
+            padding: 12px;
+            margin: 10px 0;
+            background: transparent;
+            color: #ece5e4;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            border-bottom: 2px solid black;
+            font-size: 1rem;
+        }
+
+        /* Google Sign-In button */
+        .google-signin-btn {
+            width: 80%;
+            padding: 0px;
+            background-color: #688f992a;
+            color: white;
+            border: none;
+            border-radius: 28px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            margin-top: 15px;
+        }
+
+        .google-signin-btn:hover {
+            background-color: #c1351d;
+        }
+
+        /* Responsive styling */
+        @media (max-width: 600px) {
+            .signup-container {
+                padding: 30px;
+            }
+
+            .signup-container input,
+            .signup-container .signup-btn,
+            .signup-container .google-signin-btn {
+                width: 100%;
+            }
+        }
+    </style>
+    <!-- Google API Script -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+
+<body>
+    <header>
+        <div class="nav-container navb">
+            <div class="logo">
+                <img src="Screenshot (599).png" alt="Logo" height="50px" width="50px" style="border-radius: 50%;">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="cart.html">Cart</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div id="signup-popup">
+        <div class="signup-container">
+            <!-- Close Button -->
+            <div class="btn">
+                <button class="close-btn" onclick="window.location.href='index.html'">X</button>
+            </div>
+            <h2 style="    color: snow;">Create Account</h2>
+
+            <!-- Sign Up Form -->
+            <!-- <label for="username">Username</label> -->
+            <input type="text" id="username" placeholder="Username" required>
+            <!-- <label for="username">Username</label> -->
+            <input type="email" id="email" placeholder="Email" required>
+            <!-- <label for="username">Username</label> -->
+            <input type="password" id="password" placeholder="Password" required>
+            <input type="password" id="password" placeholder="Confirm Password" required>
+            <button class="signup-btn" onclick="signup()">Sign Up</button>
+
+           
+            <button class="google-signin-btn" id="google-signin-btn">Sign in with Google</button>
+
+            <p>Already have an account? <a href="sign-in.html">Sign In</a></p>
+
+        </div>
+    </div>
+
+    <script>
+        // Handle the normal sign-up form submission
+        function signup() {
+            const username = document.getElementById("username").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            // Implement sign-up logic here (usually involving backend calls)
+            if (username && email && password) {
+                alert("Sign up successful! Redirecting to homepage.");
+                window.location.href = "index.html"; // Redirect to homepage after sign-up
+            } else {
+                alert("Please fill all fields correctly.");
+            }
+        }
+
+        // Google Sign-In Logic
+        window.onload = function () {
+            google.accounts.id.initialize({
+                client_id: 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com',
+                callback: handleCredentialResponse
+            });
+
+            google.accounts.id.renderButton(
+                document.getElementById("google-signin-btn"),
+                { theme: "outline", size: "large" } // Customize button appearance
+            );
+        };
+
+        function handleCredentialResponse(response) {
+            // Send the ID token to the backend for verification
+            console.log("Encoded JWT ID token: " + response.credential);
+            // You should send `response.credential` to your server for verification.
+            // Once verified, redirect the user to a logged-in page (e.g., index.html)
+            alert("Google Sign-In successful! Redirecting...");
+            window.location.href = "index.html"; // Redirect to homepage after Google sign-in
+        }
+
+    </script>
+</body>
+
+</html>
